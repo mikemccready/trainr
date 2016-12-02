@@ -1,17 +1,15 @@
 //server.js
-const http = require('http');
+const express = require('express');
+const app = express();
 const PORT = 3000;
 
-const reqHandler = (req, res) => {
-  console.log(req.url);
-  response.end('node server');
-}
+app.get('/', (req, res) => {
+  response.send('serving from /')
+})
 
-const server = http.createServer(reqHandler);
-
-server.listen(PORT, (err) => {
+app.listen(PORT, (err) => {
   if (err) {
     return console.log('Error: ', err);
   }
-  console.log('Server listening port 3000');
+  console.log('app listening port 3000');
 });
