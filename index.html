@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>trainr</title>
+  </head>
+  <body>
+    Summary
+    <div class="main-container"></div>
+    <script>
+      let mainContainer = document.getElementsByClassName('main-container')[0];
+
+      let workoutsReq = new XMLHttpRequest();
+      workoutsReq.onreadystatechange = () => {
+        if (workoutsReq.readyState === 4 && workoutsReq.status === 200) {
+          const data = JSON.parse(workoutsReq.responseText);
+          render(data.data);
+        }
+      }
+      workoutsReq.open('GET', '/api/workouts');
+      workoutsReq.send();
+
+      function render(data) {
+        data.map(workout => {
+          let workDiv = document.createElement('div');
+          workDiv.innerHTML = JSON.stringify(workout.workout_data);
+          mainContainer.appendChild(workDiv)
+        });
+      }
+    </script>
+  </body>
+</html>
