@@ -1,5 +1,6 @@
 //server.js
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 
 const workoutController = require('./controllers/workout_controller');
@@ -10,6 +11,11 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('client'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + './../index.html'));
+});
 
 app.get('/api/workouts', workoutController.getWorkouts);
 app.post('/api/workouts', workoutController.createWorkout);
