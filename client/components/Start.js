@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function Start(props) {
-  return <button>Start Workout</button>
+  return (
+    <button className="start-btn">
+      Start Workout
+    </button>
+  )
 }
