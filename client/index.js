@@ -1,14 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+
+import Main from './containers/Main';
+import Start from './components/Start';
 
 const app = document.getElementsByClassName('app')[0];
 
-class Main extends React.Component {
-  render() {
-    return (
-      <h1>trainr</h1>
-    );
-  }
-}
-
-ReactDOM.render(<Main />, app);
+render((
+  <Router history={browserHistory}>
+    <Route path="/" component={Main}>
+      <IndexRoute component={Start} />
+    </Route>
+  </Router>
+), app);
