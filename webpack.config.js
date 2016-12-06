@@ -10,6 +10,17 @@ module.exports = {
     path: DIST,
     filename: 'build.js'
   },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './dist',
+    hot: true,
+    proxy: {
+      '/api/**': {
+        target: 'http://localhost:3000',
+        secure: false
+      }
+    }
+  },
   module: {
     loaders: [
       {
