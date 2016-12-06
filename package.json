@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon config/server.js",
-    "react-dev": "webpack-dev-server --content-base dist"
+    "react-dev": "webpack-dev-server --inline --hot"
   },
   "author": "",
   "license": "ISC",
