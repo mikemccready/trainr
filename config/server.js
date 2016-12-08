@@ -19,9 +19,11 @@ app.get('/', (req, res) => {
 
 app.get('/api/workouts', workoutController.getWorkouts);
 app.post('/api/workouts', workoutController.createWorkout);
+app.get('/api/workouts/:workout_id/exercises', exerciseController.getWorkoutExercises)
 
 app.get('/api/exercises', exerciseController.getAllExercises);
 app.post('/api/exercises', exerciseController.createExercise);
+
 
 app.listen(PORT, (err) => {
   if (err) return console.log('Error: ', err);
