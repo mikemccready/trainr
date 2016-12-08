@@ -12,65 +12,41 @@ function createExercise(req, res) {
   const weight = req.body.weight;
   const reps = req.body.repetitions;
   const workoutId = req.body.workout_id;
+
   db.none(
     `INSERT INTO exercise(movement, weight, repetitions, created_on, workout_id)
-     VALUES(
-       '${movement}',
-       ${weight},
-       ${reps},
-       now(),
-       ${workoutId}
-     );`)
+     VALUES('${movement}', ${weight}, ${reps}, now(), ${workoutId});`
+   )
     .then(() => {
-      console.log('success')
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Exercise created'
-        });
-        return res.end();
+      res.status(200).json({ status: 'success', message: 'Exercise created'});
+      return res.end();
     })
     .catch(err => {
       console.log('fail', err)
-      return res.status(500);
+      return res.status(500).end();
     })
 }
 
 function getAllExercises(req, res) {
   db.any('SELECT * FROM exercise')
     .then(data => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved exercises'
-        });
-      return res.end();
+      return res.status(200).json(data).end();
     })
     .catch(err => {
       console.error(err.stack)
-      return res.status(500).send('Error getting exercises')
+      return res.status(500).send('Error getting exercises').end();
     })
 }
 
 function getWorkoutExercises(req, res) {
   const workoutId = req.params.workout_id;
-  db.any(
-    `SELECT * FROM exercise
-     WHERE workout_id = ${workoutId};`
-  )
+  db.any(`SELECT * FROM exercise WHERE workout_id = ${workoutId};`)
     .then(data => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved workout exercises'
-        });
-      return res.end();
+      return res.status(200).json(data).end();
     })
     .catch(err => {
       console.error(err.stack)
-      return res.status(500).send('Error getting exercises')
+      return res.status(500).send('Error getting exercises').end();
     });
 }
 
