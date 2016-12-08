@@ -53,7 +53,29 @@ function getAllExercises(req, res) {
     })
 }
 
+function getWorkoutExercises(req, res) {
+  const workoutId = req.params.workout_id;
+  db.any(
+    `SELECT * FROM exercise
+     WHERE workout_id = ${workoutId};`
+  )
+    .then(data => {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved workout exercises'
+        });
+      return res.end();
+    })
+    .catch(err => {
+      console.error(err.stack)
+      return res.status(500).send('Error getting exercises')
+    });
+}
+
 module.exports = {
   createExercise,
-  getAllExercises
+  getAllExercises,
+  getWorkoutExercises
 }
