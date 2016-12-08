@@ -23,6 +23,7 @@ pool.connect((err, client, done) => {
       exercise_id serial PRIMARY KEY,
       movement VARCHAR(50) NOT NULL,
       weight integer,
+      repetitions integer,
       notes VARCHAR(1000),
       created_on TIMESTAMPTZ NOT NULL,
       workout_id integer NOT NULL,
