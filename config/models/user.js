@@ -5,30 +5,25 @@ const pool = new pg.Pool(config);
 
 pool.connect((err, client, done) => {
   if(err) return console.error('error fetching client from pool', err);
-  client.query('DROP TABLE IF EXISTS exercise;',
+  client.query(
+    'DROP TABLE IF EXISTS users;',
     (err, result) => {
       done();
       if(err) return console.error('error running query', err);
-      console.log('Table Dropped');
+      console.log('User table dropped');
     }
   );
   client.query(
-    `CREATE TABLE exercise(
-      exercise_id serial PRIMARY KEY,
-      movement VARCHAR(50) NOT NULL,
-      weight integer,
-      repetitions integer,
-      notes VARCHAR(1000),
-      created_on TIMESTAMPTZ NOT NULL,
-      workout_id integer NOT NULL,
-      CONSTRAINT exercise_workout_id_fkey FOREIGN KEY (workout_id)
-        REFERENCES workout (workout_id) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
+    `CREATE TABLE users(
+      user_id serial PRIMARY KEY,
+      email VARCHAR(355) UNIQUE NOT NULL,
+      password VARCHAR(155) NOT NULL,
+      created_on TIMESTAMPTZ NOT NULL
     );`,
     (err, result) => {
       done();
       if(err) return console.error('error running query', err);
-      console.log('Exercise table created');
+      console.log('User table created');
     }
   );
 });
