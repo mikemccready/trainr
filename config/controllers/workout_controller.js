@@ -8,8 +8,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const db = pgp(connectionString);
 
 function createWorkout(req, res) {
-  const newWorkout = {workout_data: req.body, date: new Date()};
-  db.none('insert into workouts(workout_data, date) values($1, $2)', [newWorkout.workout_data, newWorkout.date])
+  db.none(`INSERT INTO workout(created_on) VALUES(NOW())`)
     .then(() => {
       console.log('success')
       res.status(200)
@@ -26,7 +25,7 @@ function createWorkout(req, res) {
 }
 
 function getWorkouts(req, res) {
-  db.any('select * from workouts')
+  db.any('SELECT * FROM workout')
     .then(data => {
       res.status(200)
         .json({
