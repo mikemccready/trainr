@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const workoutController = require('./controllers/workout_controller');
-console.log(workoutController);
+const exerciseController = require('./controllers/exercise_controller');
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +19,9 @@ app.get('/', (req, res) => {
 
 app.get('/api/workouts', workoutController.getWorkouts);
 app.post('/api/workouts', workoutController.createWorkout);
+
+app.get('/api/exercises', exerciseController.getAllExercises);
+app.post('/api/exercises', exerciseController.createExercise);
 
 app.listen(PORT, (err) => {
   if (err) return console.log('Error: ', err);
