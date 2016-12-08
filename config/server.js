@@ -1,10 +1,10 @@
 //server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
-
 const app = express();
 const port = process.env.PORT || 3000;
+
+const routes = require('./routes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
