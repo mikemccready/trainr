@@ -8,36 +8,25 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const db = pgp(connectionString);
 
 function createWorkout(req, res) {
-  db.none(`INSERT INTO workout(created_on) VALUES(NOW())`)
+  db.none(`INSERT INTO workout(created_on) VALUES(now())`)
     .then(() => {
-      console.log('success')
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Workout created'
-        });
-        return res.end();
+      res.status(200).json({ status: 'success', message: 'Workout created'});
+      return res.end();
     })
     .catch(err => {
       console.log('fail', err)
-      return res.status(500);
+      return res.status(500).end();
     })
 }
 
 function getWorkouts(req, res) {
   db.any('SELECT * FROM workout')
     .then(data => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved workouts'
-        });
-      return res.end();
+      return res.status(200).json(data).end();
     })
     .catch(err => {
       console.error(err.stack)
-      return res.status(500).send('Error getting workouts')
+      return res.status(500).send('Error getting workouts').end();
     })
 }
 
