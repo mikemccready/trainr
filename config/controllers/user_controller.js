@@ -11,7 +11,6 @@ const bcrypt = require('bcrypt-nodejs');
 function signupUser(req, res) {
   const email = req.body.email;
   const password = req.body.password;
-
   if (!email || !password) return res.status(422).send({error: 'Please provide email and password'});
   // check if email already exists
   db.any(`SELECT * FROM users WHERE email = '${email}';`)
@@ -19,7 +18,7 @@ function signupUser(req, res) {
       if (userData.length > 0) {
         return res.status(422).send({ error: 'Email already exists' });
       } else {
-        // no user exists, create new user
+        // no user exists, hash the password
         hashPassword(req, res, email, password);
       }
     })
@@ -31,8 +30,10 @@ function signupUser(req, res) {
 function hashPassword(req, res, email, password) {
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return err;
-    bcrypt.hash(password, salt, null, (err, hashedpassword) => {
-      createUser(req, res, email, hashedpassword);
+    bcrypt.hash(password, salt, null, (err, hashedPassword) => {
+      if (err) return err;
+      // once hashed, create the user
+      createUser(req, res, email, hashedPassword);
     });
   });
 }
