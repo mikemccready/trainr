@@ -3,6 +3,7 @@ const path = require('path');
 const router = express.Router();
 
 // require controllers for api
+const userController = require('./controllers/user_controller');
 const workoutController = require('./controllers/workout_controller');
 const exerciseController = require('./controllers/exercise_controller');
 
@@ -12,6 +13,9 @@ router.get('/', (req, res) => {
 });
 
 // api routes
+router.get('/api/users', userController.getUsers);
+router.post('/api/users', userController.signupUser);
+
 router.get('/api/workouts', workoutController.getWorkouts);
 router.post('/api/workouts', workoutController.createWorkout);
 router.get('/api/workouts/:workout_id/exercises', exerciseController.getWorkoutExercises);
