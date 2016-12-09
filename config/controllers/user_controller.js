@@ -54,6 +54,22 @@ function createUser(req, res, email, hashedPassword) {
     })
 }
 
+function authUser(payload, done) {
+  db.oneOrNone(`SELECT * FROM users WHERE user_id = ${payload.sub};`)
+    .then(user => {
+      if (user) {
+        done(null, user);
+      } else {
+        done(null, false);
+      }
+      return;
+    })
+    .catch(err => {
+      console.log(err)
+      return res.status(500).send({ error: err }).end();
+    });
+}
+
 // helper functions
 function hashPassword(req, res, email, password) {
   bcrypt.genSalt(10, (err, salt) => {
@@ -73,5 +89,6 @@ function tokenForUser(user) {
 
 module.exports = {
   signupUser,
-  getUsers
+  getUsers,
+  authUser
 }
