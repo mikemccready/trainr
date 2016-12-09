@@ -58,16 +58,35 @@ function authUser(payload, done) {
   db.oneOrNone(`SELECT * FROM users WHERE user_id = ${payload.sub};`)
     .then(user => {
       if (user) {
-        done(null, user);
+        return done(null, user);
       } else {
-        done(null, false);
+        return done(null, false);
       }
-      return;
     })
     .catch(err => {
       console.log(err)
       return res.status(500).send({ error: err }).end();
     });
+}
+
+function verifyUserLocal(email, password, done) {
+  db.oneOrNone(`SELECT * FROM users WHERE email = '${email}'`)
+    .then(user => {
+      if (user) {
+        comparePassword(password, user.password, (err, isMatch) => {
+          if (err) return done(err);
+          if (!isMatch) return done(null, false);
+          return done(null, user);
+        })
+      } else {
+        return done(null, false);
+      }
+    })
+}
+
+function signinUser(req, res) {
+  // user creds already verified, issue token
+  return res.send({ token: tokenForUser(req.user) });
 }
 
 // helper functions
@@ -82,6 +101,13 @@ function hashPassword(req, res, email, password) {
   });
 }
 
+function comparePassword(enteredPassword, savedPassword, callback) {
+  bcrypt.compare(enteredPassword, savedPassword, (err, isMatch) => {
+    if (err) return callback(err);
+    callback(null, isMatch);
+  });
+}
+
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({ sub: user.user_id, iat: timestamp }, config.secret);
@@ -90,5 +116,7 @@ function tokenForUser(user) {
 module.exports = {
   signupUser,
   getUsers,
-  authUser
+  authUser,
+  verifyUserLocal,
+  signinUser
 }
