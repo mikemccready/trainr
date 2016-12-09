@@ -9,6 +9,7 @@ const exerciseController = require('./controllers/exercise_controller');
 const passportService = require('./services/passport');
 // authentication middleware
 const requireAuth = passport.authenticate('jwt', { session: false });
+const requireSignin = passport.authenticate('local', { session: false });
 
 // serve index
 router.get('/', (req, res) => {
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
 // api routes
 router.get('/api/users', userController.getUsers);
 router.post('/api/users', userController.signupUser);
+router.post('/api/users/signin', requireSignin, userController.signinUser);
 
 router.get('/api/workouts', workoutController.getWorkouts);
 router.post('/api/workouts', workoutController.createWorkout);
@@ -26,8 +28,8 @@ router.get('/api/workouts/:workout_id/exercises', exerciseController.getWorkoutE
 router.get('/api/exercises', exerciseController.getAllExercises);
 router.post('/api/exercises', exerciseController.createExercise);
 
-router.get('/test', requireAuth, (req, res) => {
-  res.send({ hi: 'there' });
-});
+// router.get('/test', requireAuth, (req, res) => {
+//   res.send({ hi: 'there' });
+// });
 
 module.exports = router;
