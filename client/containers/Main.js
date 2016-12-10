@@ -48,8 +48,6 @@ export default class Main extends React.Component {
       <div onClick={this.handleClicks}>
         <h1>trainr</h1>
         { this.props.children }
-        <h3>Recent Progress</h3>
-        { progress }
       </div>
     );
   }
