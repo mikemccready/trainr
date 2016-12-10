@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class Main extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,17 +41,20 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const progress = this.state.progress_data.map((workout, i) => {
-      return <div key={i}>{workout.date}</div>;
-    })
-
+    console.log('main props from store,', this.props)
     return (
-      <div onClick={this.handleClicks}>
+      <div className="main-container" onClick={this.handleClicks}>
         <h1>trainr</h1>
         { this.props.children }
-        <h3>Recent Progress</h3>
-        { progress }
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Main);
