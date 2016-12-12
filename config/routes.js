@@ -21,15 +21,11 @@ router.get('/api/users', userController.getUsers);
 router.post('/api/users', userController.signupUser);
 router.post('/api/users/signin', requireSignin, userController.signinUser);
 
-router.get('/api/workouts', workoutController.getWorkouts);
-router.post('/api/workouts', workoutController.createWorkout);
-router.get('/api/workouts/:workout_id/exercises', exerciseController.getWorkoutExercises);
+router.get('/api/users/:user_id/workouts', workoutController.getWorkouts);
+router.post('/api/users/:user_id/workouts', workoutController.createWorkout);
+router.get('/api/users/:user_id/workouts/:workout_id/exercises', requireAuth, exerciseController.getWorkoutExercises);
 
-router.get('/api/exercises', exerciseController.getAllExercises);
-router.post('/api/exercises', exerciseController.createExercise);
-
-// router.get('/test', requireAuth, (req, res) => {
-//   res.send({ hi: 'there' });
-// });
+router.get('/api/users/:user_id/exercises', requireAuth, exerciseController.getAllExercises);
+router.post('/api/users/:user_id/exercises', requireAuth, exerciseController.createExercise);
 
 module.exports = router;
