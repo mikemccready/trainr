@@ -8,14 +8,16 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const db = pgp(connectionString);
 
 function createExercise(req, res) {
+  console.log('here')
   const movement = req.body.movement;
   const weight = req.body.weight;
   const reps = req.body.repetitions;
   const workoutId = req.body.workout_id;
+  const userId = req.params.user_id;
 
   db.none(
-    `INSERT INTO exercise(movement, weight, repetitions, created_on, workout_id)
-     VALUES('${movement}', ${weight}, ${reps}, now(), ${workoutId});`
+    `INSERT INTO exercise(movement, weight, repetitions, created_on, workout_id, user_id)
+     VALUES('${movement}', ${weight}, ${reps}, now(), ${workoutId}, ${userId});`
    )
     .then(() => {
       res.status(200).json({ status: 'success', message: 'Exercise created'});
@@ -40,7 +42,8 @@ function getAllExercises(req, res) {
 
 function getWorkoutExercises(req, res) {
   const workoutId = req.params.workout_id;
-  db.any(`SELECT * FROM exercise WHERE workout_id = ${workoutId};`)
+  const userId = req.params.user_id;
+  db.any(`SELECT * FROM exercise WHERE workout_id = ${workoutId} AND user_id = ${userId};`)
     .then(data => {
       return res.status(200).json(data).end();
     })
