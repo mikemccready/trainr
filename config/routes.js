@@ -21,8 +21,8 @@ router.get('/api/users', userController.getUsers);
 router.post('/api/users', userController.signupUser);
 router.post('/api/users/signin', requireSignin, userController.signinUser);
 
-router.get('/api/users/:user_id/workouts', workoutController.getWorkouts);
-router.post('/api/users/:user_id/workouts', workoutController.createWorkout);
+router.get('/api/users/:user_id/workouts', requireAuth, workoutController.getWorkouts);
+router.post('/api/users/:user_id/workouts', requireAuth, workoutController.createWorkout);
 router.get('/api/users/:user_id/workouts/:workout_id/exercises', requireAuth, exerciseController.getWorkoutExercises);
 
 router.get('/api/users/:user_id/exercises', requireAuth, exerciseController.getAllExercises);
