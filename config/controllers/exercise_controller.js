@@ -8,7 +8,6 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const db = pgp(connectionString);
 
 function createExercise(req, res) {
-  console.log('here')
   const movement = req.body.movement;
   const weight = req.body.weight;
   const reps = req.body.repetitions;
