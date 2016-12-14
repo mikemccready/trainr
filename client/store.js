@@ -5,8 +5,7 @@ import { browserHistory } from 'react-router';
 import reducers from './reducers';
 
 let user = {
-  id: null,
-  email: null,
+  user_id: null,
   authenticated: false
 };
 
