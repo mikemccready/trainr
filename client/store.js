@@ -13,7 +13,8 @@ let workouts = [];
 let exercises = [];
 
 const defaultState = {
-  user
+  user,
+  workouts
 };
 
 const store = createStore(reducers, defaultState);
