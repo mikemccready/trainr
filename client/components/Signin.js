@@ -49,7 +49,9 @@ export default class Signin extends React.Component {
       .then(response => {
         if (response.status !== 200) return that.showError();
         response.json().then(data => {
-          console.log(data.token)
+          console.log('token', data.token)
+          // call authentication action
+          that.props.authenticate();
           browserHistory.push('/progress');
         })
       })
