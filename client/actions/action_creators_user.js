@@ -1,6 +1,7 @@
-export function authenticate() {
+export function authenticate(user_id) {
   return {
-    type: 'AUTHENTICATE'
+    type: 'AUTHENTICATE',
+    user_id
   }
 }
 
