@@ -8,7 +8,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/
 const db = pgp(connectionString);
 
 function createWorkout(req, res) {
-  const userId = req.params.user_id;
+  const userId = req.body.user_id;
   db.none(`INSERT INTO workout(created_on, user_id) VALUES(now(), ${userId})`)
     .then(() => {
       res.status(200).json({ status: 'success', message: 'Workout created'});
