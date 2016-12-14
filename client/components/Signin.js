@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
+import { decode } from '../services/token';
 
 export default class Signin extends React.Component {
   constructor(props) {
@@ -49,7 +50,9 @@ export default class Signin extends React.Component {
       .then(response => {
         if (response.status !== 200) return that.showError();
         response.json().then(data => {
-          console.log(data.token)
+          const user_id = decode(data.token);
+          localStorage.setItem('token', data.token);
+          that.props.authenticate(user_id);
           browserHistory.push('/progress');
         })
       })

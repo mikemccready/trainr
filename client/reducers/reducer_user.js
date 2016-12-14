@@ -1,7 +1,11 @@
-export default () => {
-  return {
-    id: null,
-    email: null,
-    authenticated: false
+export default (state = {}, action) => {
+  switch (action.type) {
+    case 'AUTHENTICATE':
+    const newState = Object.assign({}, state, {
+      authenticated: true,
+      user_id: action.user_id
+    });
+    return newState;
   }
+  return state;
 }
