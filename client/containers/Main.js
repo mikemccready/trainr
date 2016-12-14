@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-
-import * as actionCreators from '../actions/action_creators_user';
+import { actionCreators } from '../actions';
 
 class Main extends React.Component {
   constructor(props) {
@@ -36,7 +35,8 @@ class Main extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    workouts: state.workouts
   }
 }
 
