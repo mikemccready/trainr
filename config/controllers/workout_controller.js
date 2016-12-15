@@ -9,9 +9,11 @@ const db = pgp(connectionString);
 
 function createWorkout(req, res) {
   const userId = req.body.user_id;
-  db.none(`INSERT INTO workout(created_on, user_id) VALUES(now(), ${userId})`)
-    .then(() => {
-      res.status(200).json({ status: 'success', message: 'Workout created'});
+  db.one(`INSERT INTO workout(created_on, user_id)
+           VALUES(now(), ${userId})
+           RETURNING workout_id, created_on, user_id;`)
+    .then((data) => {
+      res.status(200).json({ status: 'success', data, message: 'Workout created'});
       return res.end();
     })
     .catch(err => {
