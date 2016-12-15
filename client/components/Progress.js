@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 export default class Progress extends React.Component {
   constructor(props) {
@@ -46,7 +47,10 @@ export default class Progress extends React.Component {
     })
       .then(response => {
         if (response.status !== 200) return console.log('error', response.status);
-        response.json().then(that.getWorkoutsReq());
+        response.json().then(data => {
+          that.props.setCurrentWorkout(data.data);
+          browserHistory.push('/trainr');
+        });
       })
       .catch(err => {
         console.log('error', err);
@@ -54,8 +58,15 @@ export default class Progress extends React.Component {
   }
 
   render() {
+
+    const options = {
+        weekday: "short", month: "short",
+        day: "numeric", hour: "2-digit", minute: "2-digit"
+    };
+
     const workoutDivs = this.props.workouts.map(workout => {
-      return <div key={workout.created_on}>{workout.created_on}</div>
+      let date = new Date(workout.created_on.replace(' ', 'T'));
+      return <div key={workout.created_on}>{date.toLocaleTimeString("en-us", options)}</div>
     });
 
     return (
