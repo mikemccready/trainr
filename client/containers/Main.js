@@ -37,6 +37,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     workouts: state.workouts,
+    exercises: state.exercises,
     currentWorkout: state.currentWorkout
   }
 }
