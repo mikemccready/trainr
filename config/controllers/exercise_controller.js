@@ -12,7 +12,7 @@ function createExercise(req, res) {
   const weight = req.body.weight;
   const reps = req.body.repetitions;
   const workoutId = req.body.workout_id;
-  const userId = req.params.user_id;
+  const userId = req.body.user_id;
 
   db.none(
     `INSERT INTO exercise(movement, weight, repetitions, created_on, workout_id, user_id)

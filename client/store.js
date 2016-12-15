@@ -9,12 +9,15 @@ let user = {
   authenticated: false
 };
 
+let currentWorkout = {};
 let workouts = [];
 let exercises = [];
 
 const defaultState = {
   user,
-  workouts
+  workouts,
+  exercises,
+  currentWorkout
 };
 
 const store = createStore(reducers, defaultState);

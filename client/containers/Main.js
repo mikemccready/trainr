@@ -36,7 +36,9 @@ class Main extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    workouts: state.workouts
+    workouts: state.workouts,
+    exercises: state.exercises,
+    currentWorkout: state.currentWorkout
   }
 }
 
