@@ -4,3 +4,10 @@ export function storeWorkouts(workouts) {
     workouts
   }
 }
+
+export function setCurrentWorkout(workout) {
+  return {
+    type: 'SET_CURRENT_WORKOUT',
+    workout
+  }
+}
