@@ -16,6 +16,7 @@ let exercises = [];
 const defaultState = {
   user,
   workouts,
+  exercises,
   currentWorkout
 };
 
