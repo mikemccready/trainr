@@ -5,7 +5,7 @@ import Main from './containers/Main';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import Welcome from './components/Welcome';
-import Start from './components/Start';
+import WorkoutSummary from './components/WorkoutSummary';
 import Trainr from './components/Trainr';
 import Progress from './components/Progress';
 
@@ -14,7 +14,7 @@ export default (
     <IndexRoute component={Welcome} />
     <Route path="signup" component={Signup} />
     <Route path="signin" component={Signin} />
-    <Route path="start" component={Start} />
+    <Route path="workout/:workout_id" component={WorkoutSummary} />
     <Route path="trainr" component={Trainr} />
     <Route path="progress" component={Progress} />
   </Route>
