@@ -1,4 +1,5 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
@@ -20,7 +21,7 @@ const defaultState = {
   currentWorkout
 };
 
-const store = createStore(reducers, defaultState);
+const store = applyMiddleware(thunk)(createStore)(reducers, defaultState);
 export const history = syncHistoryWithStore(browserHistory, store);
 
 export default store;
