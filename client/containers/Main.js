@@ -4,11 +4,20 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import { actionCreators } from '../actions';
+import { decode } from '../services/token';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.signout = this.signout.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.user.authenticated) {
+      const user_id = this.props.user.user_id;
+      this.props.getWorkoutsReq(user_id);
+      this.props.getExercisesReq(user_id);
+    }
   }
 
   signout() {
@@ -19,7 +28,9 @@ class Main extends React.Component {
 
   render() {
     let signoutLink;
+
     if (this.props.user.authenticated) {
+      const user_id = this.props.user.user_id;
       signoutLink = <h3 onClick={this.signout}>Sign out</h3>;
     }
 

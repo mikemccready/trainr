@@ -1,12 +1,12 @@
 import React from 'react';
 
 export default function WorkoutSummary(props) {
+  const workoutId = props.params.workout_id;
   const workoutExercises = props.exercises.map(exercise => {
-    if (exercise.workout_id ===  props.currentWorkout.workout_id) {
-      console.log(exercise)
+    if (exercise.workout_id === parseInt(workoutId)) {
       return (
         <div key={exercise.created_on}>
-              {exercise.movement} | weight: {exercise.weight}
+          {exercise.movement} | weight: {exercise.weight}
         </div>
       )
     }
