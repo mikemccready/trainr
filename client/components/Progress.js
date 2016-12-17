@@ -45,12 +45,14 @@ export default class Progress extends React.Component {
     };
 
     const workoutDivs = this.props.workouts.map(workout => {
-      let date = new Date(workout.created_on.replace(' ', 'T'));
-      return (
-        <div key={workout.created_on} onClick={() => {this.goToWorkoutSummary(workout)}}>
-          {date.toLocaleTimeString("en-us", options)}
-        </div>
-      )
+      if (workout.user_id === this.props.user.user_id) {
+        let date = new Date(workout.created_on.replace(' ', 'T'));
+        return (
+          <div key={workout.created_on} onClick={() => {this.goToWorkoutSummary(workout)}}>
+            {date.toLocaleTimeString("en-us", options)}
+          </div>
+        )
+      }
     });
 
     return (
