@@ -1,5 +1,7 @@
 import React from 'react';
 import update from 'react-addons-update';
+import { browserHistory } from 'react-router';
+
 
 import ExerciseInput from './ExerciseInput';
 import { decode } from '../services/token';
@@ -44,7 +46,8 @@ export default class Trainr extends React.Component {
     const workout_id = localStorage.getItem('current_workout_id');
     const user_id = decode(token);
     this.state.workoutData.forEach(exercise => {
-      this.props.saveExerciseReq(exercise, workout_id, user_id)
+      this.props.saveExerciseReq(exercise, workout_id, user_id);
+      browserHistory.push(`/workout/${workout_id}`);
     })
   }
 
