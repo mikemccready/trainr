@@ -76,7 +76,7 @@ export default class Signin extends React.Component {
               <label htmlFor="signin-email">
                 Email
                 <input
-                  type="text"
+                  type="email"
                   id="signin-email"
                   placeholder="me@trainr.com"
                   value={this.state.email} />
@@ -99,6 +99,7 @@ export default class Signin extends React.Component {
             </p>
           </section>
         </form>
+        <Link to="/signup">New to trainr? Sign up</Link>
       </div>
     )
   }

@@ -89,6 +89,18 @@ function signinUser(req, res) {
   return res.send({ token: tokenForUser(req.user) });
 }
 
+function deleteUser(req, res) {
+  const user_id = req.params.user_id;
+  db.none(`DELETE FROM users WHERE user_id=${user_id}`)
+    .then(() => {
+      return res.status(200).send({ message: 'user deleted'});
+    })
+    .catch(err => {
+      console.error(err.stack)
+      return res.status(500).send('Error deleting user').end();
+    })
+}
+
 // helper functions
 function hashPassword(req, res, email, password) {
   bcrypt.genSalt(10, (err, salt) => {
@@ -118,5 +130,6 @@ module.exports = {
   getUsers,
   authUser,
   verifyUserLocal,
-  signinUser
+  signinUser,
+  deleteUser
 }
