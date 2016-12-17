@@ -24,6 +24,7 @@ export default class Progress extends React.Component {
         if (response.status !== 200) return console.log('error', response.status);
         response.json().then(data => {
           that.props.setCurrentWorkout(data.data);
+          localStorage.setItem('current_workout_id', data.data.workout_id);
           browserHistory.push('/trainr');
         });
       })
