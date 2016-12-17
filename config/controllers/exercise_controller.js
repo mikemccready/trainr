@@ -13,13 +13,14 @@ function createExercise(req, res) {
   const reps = req.body.repetitions;
   const workoutId = req.body.workout_id;
   const userId = req.body.user_id;
-
-  db.none(
+  console.log(req.body)
+  db.one(
     `INSERT INTO exercise(movement, weight, repetitions, created_on, workout_id, user_id)
-     VALUES('${movement}', ${weight}, ${reps}, now(), ${workoutId}, ${userId});`
+     VALUES('${movement}', ${weight}, ${reps}, now(), ${workoutId}, ${userId})
+     RETURNING movement, weight, repetitions, created_on, workout_id, user_id;`
    )
-    .then(() => {
-      res.status(200).json({ status: 'success', message: 'Exercise created'});
+    .then(data => {
+      res.status(200).json({ status: 'success', data, message: 'Exercise created'});
       return res.end();
     })
     .catch(err => {
