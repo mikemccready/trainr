@@ -20,6 +20,7 @@ router.get('/', (req, res) => {
 router.get('/api/users', userController.getUsers);
 router.post('/api/users', userController.signupUser);
 router.post('/api/users/signin', requireSignin, userController.signinUser);
+router.delete('/api/users/:user_id', userController.deleteUser);
 
 router.get('/api/users/:user_id/workouts', requireAuth, workoutController.getWorkouts);
 router.post('/api/users/:user_id/workouts', requireAuth, workoutController.createWorkout);
