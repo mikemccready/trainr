@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default function WorkoutSummary(props) {
   const workoutId = props.params.workout_id;
@@ -15,6 +16,7 @@ export default function WorkoutSummary(props) {
     <div className="summary-page">
       Workout Summary
       {workoutExercises}
+      <Link to="/progress">Check your progress</Link>
     </div>
   )
 }
