@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon config/server.js",
-    "react-dev": "webpack-dev-server --inline --hot"
+    "react-dev": "webpack-dev-server --inline --hot",
+    "build": "webpack -p --config"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "jwt-simple": "^0.5.1",
+    "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
