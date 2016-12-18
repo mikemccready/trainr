@@ -17,6 +17,8 @@ if (token) {
     type: 'AUTHENTICATE',
     user_id
   })
+} else {
+  browserHistory.push('/');
 }
 
 render((

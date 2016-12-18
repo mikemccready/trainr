@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-import { actionCreators } from '../actions';
-import { decode } from '../services/token';
+import { actionCreators } from '../../actions';
+import { decode } from '../../services/token';
+import styles from './main.scss';
 
 class Main extends React.Component {
   constructor(props) {
@@ -31,13 +32,16 @@ class Main extends React.Component {
 
     if (this.props.user.authenticated) {
       const user_id = this.props.user.user_id;
-      signoutLink = <h3 onClick={this.signout}>Sign out</h3>;
+      signoutLink = <h3 className={styles['main-signout-btn']} onClick={this.signout}>Sign out</h3>;
     }
 
     return (
-      <div className="main-container" onClick={this.handleClicks}>
-        <h1>trainr</h1>
-        { signoutLink }
+      <div className={styles.main}
+        onClick={this.handleClicks}>
+        <nav className={styles['main-nav']}>
+          <h1 className={styles['main-mark']}>trainr</h1>
+          { signoutLink }
+        </nav>
         { React.cloneElement(this.props.children, this.props) }
       </div>
     );
