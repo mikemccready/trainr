@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
-import { decode } from '../services/token';
+
+import { decode } from '../../services/token';
+import styles from './signin.scss';
 
 export default class Signin extends React.Component {
   constructor(props) {
@@ -67,39 +69,39 @@ export default class Signin extends React.Component {
 
   render() {
     return (
-      <div className="signin-page">
-        <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-          <h3>Sign in</h3>
-          <h5>{this.state.errorMsg}</h5>
-          <section>
-            <p>
-              <label htmlFor="signin-email">
-                Email
-                <input
-                  type="email"
-                  id="signin-email"
-                  placeholder="me@trainr.com"
-                  value={this.state.email} />
-              </label>
-            </p>
-            <p>
-              <label htmlFor="signin-password">
-                Password
-                <input
-                  type="password"
-                  id="signin-password"
-                  placeholder="password"
-                  value={this.state.password} />
-              </label>
-            </p>
-          </section>
-          <section>
-            <p>
-              <button>Sign in</button>
-            </p>
-          </section>
-        </form>
-        <Link to="/signup">New to trainr? Sign up</Link>
+      <div className={styles.signin}>
+        <h1>trainr</h1>
+        <div className={styles['signin-form-container']}>
+          <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
+            <h5>{this.state.errorMsg}</h5>
+            <section>
+              <p>
+                <label htmlFor="signin-email">
+                  <input
+                    type="email"
+                    id="signin-email"
+                    placeholder="me@trainr.com"
+                    value={this.state.email} />
+                </label>
+              </p>
+              <p>
+                <label htmlFor="signin-password">
+                  <input
+                    type="password"
+                    id="signin-password"
+                    placeholder="password"
+                    value={this.state.password} />
+                </label>
+              </p>
+            </section>
+            <section>
+              <p>
+                <button>Sign in</button>
+              </p>
+            </section>
+          </form>
+          <Link to="/signup">New to trainr? Sign up</Link>
+        </div>
       </div>
     )
   }

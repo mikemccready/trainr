@@ -66,7 +66,7 @@ export default class Progress extends React.Component {
     });
 
     return (
-      <div className={styles.progress}>
+      <div className={styles.progress, styles.container}>
         <h3>Progress</h3>
         { workoutDivs }
         <button onClick={this.addWorkoutReq}>Start Workout</button>

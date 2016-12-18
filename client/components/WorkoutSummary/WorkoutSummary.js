@@ -16,7 +16,7 @@ export default function WorkoutSummary(props) {
     }
   })
   return (
-    <div className={styles['workout-summary']}>
+    <div className={styles['workout-summary'], styles.container}>
       <h3>Workout Summary</h3>
       <div className={styles['workout-summary-exercises']}>
         {workoutExercises}
