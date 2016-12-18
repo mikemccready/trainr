@@ -59,7 +59,7 @@ export default class Trainr extends React.Component {
               workoutData={this.state.workoutData}/>
     })
     return (
-      <div className={styles.trainr}>
+      <div className={styles.trainr, styles.container}>
         <h3>Trainr</h3>
         <div className="trainr-exercise-list" onChange={this.updateWorkoutData}>
           { exerciseInputs }
