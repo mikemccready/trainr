@@ -3,8 +3,9 @@ import update from 'react-addons-update';
 import { browserHistory } from 'react-router';
 
 
-import ExerciseInput from './ExerciseInput';
-import { decode } from '../services/token';
+import ExerciseInput from '../ExerciseInput/ExerciseInput';
+import { decode } from '../../services/token';
+import styles from './trainr.scss';
 
 export default class Trainr extends React.Component {
   constructor(props) {
@@ -53,10 +54,12 @@ export default class Trainr extends React.Component {
 
   render() {
     const exerciseInputs = this.state.workoutData.map((exercise, i) => {
-      return <ExerciseInput index={i} key={i} workoutData={this.state.workoutData} />
+      return <ExerciseInput index={i}
+              key={i}
+              workoutData={this.state.workoutData}/>
     })
     return (
-      <div className="trainr-page">
+      <div className={styles.trainr}>
         <h3>Trainr</h3>
         <div className="trainr-exercise-list" onChange={this.updateWorkoutData}>
           { exerciseInputs }

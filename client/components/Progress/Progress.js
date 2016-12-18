@@ -1,11 +1,19 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
+import styles from './progress.scss';
+
 export default class Progress extends React.Component {
   constructor(props) {
     super(props);
     this.addWorkoutReq = this.addWorkoutReq.bind(this);
     this.goToWorkoutSummary = this.goToWorkoutSummary.bind(this);
+  }
+
+  componentDidMount() {
+    const user_id = this.props.user.user_id;
+    this.props.getWorkoutsReq(user_id);
+    this.props.getExercisesReq(user_id);
   }
 
   addWorkoutReq() {
@@ -48,7 +56,9 @@ export default class Progress extends React.Component {
       if (workout.user_id === this.props.user.user_id) {
         let date = new Date(workout.created_on.replace(' ', 'T'));
         return (
-          <div key={workout.created_on} onClick={() => {this.goToWorkoutSummary(workout)}}>
+          <div key={workout.created_on}
+            onClick={() => {this.goToWorkoutSummary(workout)}}
+            className={styles['list-item']}>
             {date.toLocaleTimeString("en-us", options)}
           </div>
         )
@@ -56,10 +66,10 @@ export default class Progress extends React.Component {
     });
 
     return (
-      <div className="progress-page">
+      <div className={styles.progress}>
         <h3>Progress</h3>
-        <button onClick={this.addWorkoutReq}>Start Workout</button>
         { workoutDivs }
+        <button onClick={this.addWorkoutReq}>Start Workout</button>
       </div>
     )
   }

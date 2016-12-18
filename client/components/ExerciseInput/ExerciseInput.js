@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from './exercise-input.scss';
 
 export default function ExerciseInput(props) {
   return (
-    <div className="exercise-input">
+    <div className={styles['exercise-input']}>
       <label>
         Movement
         <input className="exercise-movement"
